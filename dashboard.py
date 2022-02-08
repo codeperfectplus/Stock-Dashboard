@@ -102,7 +102,6 @@ def update_graph(stock):
 			'legend': {'x': 0, 'y': 1},
 			# y axis range
 			'yaxis': {'range': [min(filtered_df['Minimum Threshold']) - 10, max(filtered_df['Maximum Threshold']) + 10]}
-
 		}
 	}
 
@@ -125,7 +124,6 @@ def update_data(n):
 	df['Up/Down'] = df['difference'].map(lambda x: 'Up' if x > 0 else 'Down')
 	filtered_df = df.groupby(['Stock Name']).max().reset_index()
 
-	filtered_df = df.groupby(['Stock Name',]).max().reset_index()
 	return filtered_df.to_dict('records')
 
 
