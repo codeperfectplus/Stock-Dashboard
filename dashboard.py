@@ -42,10 +42,9 @@ app.layout = html.Div([
         dcc.Dropdown(
             id='stock-name-select',
             options=[{'label': i, 'value': i} for i in filtered_df['stock_name'].unique()],
-            value='SAIL'
+            value='Birlasoft Ltd'
         )
-    ]),
-    html.Br(),    
+    ]),  
     html.Div([
         dcc.Graph(id='stock-name-graph'),
     ]),
