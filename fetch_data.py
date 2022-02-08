@@ -11,15 +11,15 @@ IST = pytz.timezone('Asia/Kolkata')
 def fetch_data(stock):
     final_url = base_url + stock
     data = {}
-    html_data = requests.get(final_url).text
+    html_data = requests.get(final_url).text.replace(',', '')
     soup = BeautifulSoup(html_data, "html.parser")
     data["title"] = soup.title.string
 
-    current_price = soup.find('div', class_='YMlKec fxKbKc').text.replace(',', '')
+    current_price = soup.find('div', class_='YMlKec fxKbKc').text
     current_price = re.findall('\d+\.\d+', current_price)
     data['current_price'] = float(current_price[0])
 
-    sidebar_data = soup.find('div', 'eYanAe').text.replace(',', '')
+    sidebar_data = soup.find('div', 'eYanAe').text
     sidebar_data = re.findall('\d+\.\d+', sidebar_data)
     sidebar_data = [float(data) for data in sidebar_data]
 
