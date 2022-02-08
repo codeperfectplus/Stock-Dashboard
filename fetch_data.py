@@ -19,7 +19,7 @@ def fetch_data(stock):
     current_price = re.findall('\d+\.\d+', current_price)
     data['current_price'] = float(current_price[0])
 
-    sidebar_data = soup.find('div', 'eYanAe').text
+    sidebar_data = soup.find('div', 'eYanAe').text.replace(',', '')
     sidebar_data = re.findall('\d+\.\d+', sidebar_data)
     sidebar_data = [float(data) for data in sidebar_data]
 
