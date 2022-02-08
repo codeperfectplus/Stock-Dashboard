@@ -1,9 +1,12 @@
 import re
+import pytz
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
 base_url = "https://www.google.com/finance/quote/"
+
+IST = pytz.timezone('Asia/Kolkata')
 
 def fetch_data(stock):
     final_url = base_url + stock
@@ -26,6 +29,6 @@ def fetch_data(stock):
     data['year_min'] = sidebar_data[3]
     data['year_max'] = sidebar_data[4]
     data['market_cap'] = sidebar_data[5]
-    data['date_time'] = datetime.now()
-    
+    data['date_time'] = datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S")
+
     return data
