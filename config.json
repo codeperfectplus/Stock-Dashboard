@@ -46,5 +46,11 @@
         "stock": "TATAPOWER:NSE",
         "min_price": 230,
         "max_price": 240
+    },
+    {
+        "stock_name": "Tata Motors Limited Fully Paid Ord. Shrs",
+        "stock": "TATAMOTORS:NSE",
+        "min_price": 490,
+        "max_price": 510
     }
 ]
