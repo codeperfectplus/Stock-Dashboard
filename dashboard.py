@@ -57,6 +57,7 @@ app.layout = html.Div([
 def update_graph(stock_name):
     filtered_df = df[df['stock_name'] == stock_name]
 
+    print(filtered_df)
     return {
         'data': [{
             'x': filtered_df['date_time'],
