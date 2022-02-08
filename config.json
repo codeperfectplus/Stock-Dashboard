@@ -34,5 +34,11 @@
         "stock": "JUBLINGREA:NSE",
         "min_price": 530,
         "max_price": 700
+    },
+    {
+        "stock_name": "INFOSYS",
+        "stock": "INFY:NSE",
+        "min_price": 1670,
+        "max_price": 2000
     }
 ]
