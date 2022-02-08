@@ -15,7 +15,7 @@ def fetch_data(stock):
     soup = BeautifulSoup(html_data, "html.parser")
     data["title"] = soup.title.string
 
-    current_price = soup.find('div', class_='YMlKec fxKbKc').text
+    current_price = soup.find('div', class_='YMlKec fxKbKc').text.replace(',', '')
     current_price = re.findall('\d+\.\d+', current_price)
     data['current_price'] = float(current_price[0])
 
