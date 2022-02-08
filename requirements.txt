@@ -3,3 +3,4 @@ pandas
 dash
 discord
 beautifulsoup4
+dash_bootstrap_components
