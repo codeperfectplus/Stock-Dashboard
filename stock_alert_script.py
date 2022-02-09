@@ -1,17 +1,8 @@
 # coding: utf-8
-from datetime import datetime
 import time
-from discord import Webhook, RequestsWebhookAdapter
 
 from fetch_data import fetch_data
-from utils import read_config, update_config
-
-discord_webhook_url = "https://discord.com/api/webhooks/940522536557498368/un_14JP-n7T6haQzIhsDB9Dfj_XjWB_2wYFK6oD-opeC-ZfRhgH29_LSbWnNGnOzGi5B"
-
-
-def send_meeage_to_discord(message):
-    webhook = Webhook.from_url(discord_webhook_url, adapter=RequestsWebhookAdapter())
-    webhook.send(message)
+from utils import read_config, update_config, send_meeage_to_discord
 
 
 def check_alert(config):
