@@ -1,8 +1,17 @@
+import datetime
+import pytz
 import pandas as pd
 from dash import Dash, html, dcc, dash_table, Input, Output
 
 app = Dash(__name__)
 app.title = 'Stock Alert Dashboard - Beta Version'
+
+IST = pytz.timezone('Asia/Kolkata')
+date = datetime.datetime.now(IST).strftime("%Y-%m-%d")
+
+min_date = date + " 09:00:00"
+max_date = date + " 16:00:00"
+
 
 df = pd.read_csv('data/stock.csv', header=None)
 df.rename(columns={0: 'Stock Name', 
@@ -15,6 +24,7 @@ df.rename(columns={0: 'Stock Name',
 					7: 'DateNTime',
 					8: 'difference'}, inplace=True)
 
+df['DateNTime'] = pd.to_datetime(df['DateNTime'])
 df = df.round(2)
 df['Up/Down'] = df['difference'].map(lambda x: 'Up' if x > 0 else 'Down')
 filtered_df = df.groupby(['Stock Name']).max().reset_index()
@@ -94,7 +104,7 @@ def update_graph(stock):
 			'y': filtered_df['Current Price'],
 			'name': 'Current Price',
 			'mode': 'lines',
-			'line': {'width': 3, 'color': '#0099ff', 'dash': 'dash'},
+			'line': {'width': 1, 'color': '#0099ff'},
 			'hoverinfo': 'y',
 		}, 
 		{
@@ -102,7 +112,7 @@ def update_graph(stock):
 			'y': filtered_df['Minimum Threshold'],
 			'name': 'Min Threshold',
 			'mode': 'lines',
-			'line': {'width': 2, 'dash': 'scatter', 'color': 'red'},
+			'line': {'width': 2, 'dash': 'dash', 'color': 'red'},
 			'hoverinfo': 'y',
 		},
 		{
@@ -110,14 +120,15 @@ def update_graph(stock):
 			'y': filtered_df['Maximum Threshold'],
 			'name': 'Max Threshold',
 			'mode': 'lines',
-			'line': {'width': 2, 'dash': 'scatter', 'color': 'green'},
+			'line': {'width': 2, 'dash': 'dash', 'color': 'green'},
 			'hoverinfo': 'y',
 		}],
 
 		'layout': {
 			'title': stock,
 			# xrange for datetime format
-			'xaxis': {'title': 'Date', 'type': 'date'},
+			'xaxis': {'title': 'Date', 'type': 'date',
+						'range': [min_date, max_date]},
 			'yaxis': {'title': 'INR (Indian Rupee)', 'type': 'linear',
 					  'range': [min(filtered_df['Minimum Threshold']) - 10, max(filtered_df['Maximum Threshold']) + 10]},
 			'hovermode': 'compare',
@@ -152,6 +163,7 @@ def update_data(n):
 						7: 'DateNTime',
 						8: 'difference'}, inplace=True)
 
+	df['DateNTime'] = pd.to_datetime(df['DateNTime'])
 	df = df.round(2)
 	df['Up/Down'] = df['difference'].map(lambda x: 'Up' if x > 0 else 'Down')
 	filtered_df = df.groupby(['Stock Name']).max().reset_index()

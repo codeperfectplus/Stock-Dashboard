@@ -19,4 +19,3 @@ def send_meeage_to_discord(message):
     """ Send message to discord webhook """
     webhook = Webhook.from_url(discord_webhook_url, adapter=RequestsWebhookAdapter())
     webhook.send(message)
-    webhook.close()
