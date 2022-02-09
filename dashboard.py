@@ -27,7 +27,10 @@ df.rename(columns={0: 'Stock Name',
 df['DateNTime'] = pd.to_datetime(df['DateNTime'])
 df = df.round(2)
 df['Up/Down'] = df['difference'].map(lambda x: 'Up' if x > 0 else 'Down')
-filtered_df = df.groupby(['Stock Name']).max().reset_index()
+lastest_date = df.groupby(['Stock Name'])['DateNTime'].max().reset_index()['DateNTime']
+filtered_df = df[df['DateNTime'].isin(lastest_date)]
+filtered_df.sort_values(by=['Stock Name'], inplace=True)
+#filtered_df = df.groupby(['Stock Name']).max().reset_index()
 
 # update table colors   
 app.layout = html.Div([
@@ -166,7 +169,10 @@ def update_data(n):
 	df['DateNTime'] = pd.to_datetime(df['DateNTime'])
 	df = df.round(2)
 	df['Up/Down'] = df['difference'].map(lambda x: 'Up' if x > 0 else 'Down')
-	filtered_df = df.groupby(['Stock Name']).max().reset_index()
+	lastest_date = df.groupby(['Stock Name'])['DateNTime'].max().reset_index()['DateNTime']
+	filtered_df = df[df['DateNTime'].isin(lastest_date)]
+	filtered_df.sort_values(by=['Stock Name'], inplace=True)
+	# filtered_df = df.groupby(['Stock Name']).max().reset_index()
 
 	return filtered_df.to_dict('records')
 
