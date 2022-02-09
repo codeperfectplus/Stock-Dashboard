@@ -39,7 +39,7 @@ def check_alert(config):
         print("Min Price updated to {}".format(config['min_price']))
     if stock_data['current_price'] > config['max_price']:
         difference = stock_data['current_price']- config['max_price']
-        message = '{} is currently Up at: {}, min threshold: {}, difference: {}'.format(
+        message = '{} is currently Up at: {}, max threshold: {}, difference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
                             config['max_price'], 
@@ -48,7 +48,7 @@ def check_alert(config):
         config['max_price'] = stock_data['current_price']
         send_meeage_to_discord(message)
         print(message)
-        print("Min Price updated to {}".format(config['max_price']))
+        print("Max Price updated to {}".format(config['max_price']))
 
 def main():
     configs = read_config()
