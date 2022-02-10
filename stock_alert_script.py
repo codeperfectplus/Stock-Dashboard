@@ -1,8 +1,13 @@
 # coding: utf-8
 import time
-
+import pytz
+from datetime import datetime
 from fetch_data import fetch_data
 from utils import read_config, update_config, send_meeage_to_discord
+
+IST = pytz.timezone('Asia/Kolkata')
+
+current_time = datetime.now(IST).strftime('%H:%M:%S')
 
 
 def check_alert(config):
@@ -20,14 +25,10 @@ def check_alert(config):
             stock_data['date_time'],
             stock_data['current_price'] - stock_data['previous_close']
             ))
-
-    print('Current Price: {}'.format(stock_data['current_price']))
-    print('Min Threshold: {} | Max Threshold: {}'.format(config['min_price'], config['max_price']))
-    print('Day Up: {} | Down: {}'.format(stock_data['day_min'], stock_data['day_max']))
-    print('-'*50)
         
-    difference = config['min_price']- stock_data['current_price']
     if stock_data['current_price'] < config['min_price']:
+        difference = config['min_price'] - stock_data['current_price']
+        difference = round(difference, 2)
         message = '{} is currently down at: {}, min threshold: {}, difference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
@@ -35,10 +36,11 @@ def check_alert(config):
                             difference)
         config['min_price'] = stock_data['current_price']
         send_meeage_to_discord(message)
-        print(message)
         print("Min Price updated to {}".format(config['min_price']))
+
     if stock_data['current_price'] > config['max_price']:
-        difference = stock_data['current_price']- config['max_price']
+        difference = stock_data['current_price'] - config['max_price']
+        difference = round(difference, 2)
         message = '{} is currently Up at: {}, max threshold: {}, difference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
@@ -47,13 +49,12 @@ def check_alert(config):
         
         config['max_price'] = stock_data['current_price']
         send_meeage_to_discord(message)
-        print(message)
         print("Max Price updated to {}".format(config['max_price']))
 
 def main():
+    print('Updating Config... {}'.format(current_time), end='\r')
     configs = read_config()
     for config in configs:
-        print("Checking {}".format(config['stock_name']), end='\n')
         check_alert(config)
     update_config(configs)
 
