@@ -1,5 +1,3 @@
-import datetime
-import pytz
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc, dash_table, Input, Output
@@ -26,7 +24,7 @@ def get_filtered_data():
 	df['Last Update'] = pd.to_datetime(df['Last Update'])
 	lastest_date = df.groupby(['Stock Name'])['Last Update'].max().reset_index()['Last Update']
 	filtered_df = df[df['Last Update'].isin(lastest_date)]
-	filtered_df.sort_values(by=['difference'], inplace=True)
+	filtered_df.sort_values(by=['difference'], inplace=True, ascending=False)
 	filtered_df = filtered_df[['Stock Name', 'Previous Close', 'Current Price', 'difference', 'Minimum(Day)', 'Maximum(Day)', 'Minimum(Threshold)', 'Maximum(Threshold)', 'Last Update']]
 	filtered_df["Last Update"] = filtered_df["Last Update"].apply(lambda x: x.strftime('%H:%M:%S'))
 	return df, filtered_df
@@ -58,24 +56,26 @@ app.layout = html.Div([
 			style_data_conditional=[
 				{
 					'if': {
-						'filter_query': '{difference} < "0"'},
-					'backgroundColor': 'rgb(102, 0, 0)',
+						'filter_query': '{difference} >= 0'},
+					'backgroundColor': 'rgb(0, 102, 51)',
 					'color': 'white',
 					'fontWeight': 'bold'
 				},
 				{
 					'if': {
-						'filter_query': '{difference} > "0"'},
-					'backgroundColor': 'rgb(0, 102, 51)',
+						'filter_query': '{difference} < 0'},
+					'backgroundColor': 'rgb(102, 0, 0)',
 					'color': 'white',
 					'fontWeight': 'bold'
-				},
+				}
+				
 			],
 			style_table={
 				'width': '100%',
 				'height': '100%',
 				'overflowY': 'scroll',
 				'overflowX': 'scroll',
+				'textAlign': 'center',
 			},
 		),
 		dcc.Interval(
@@ -97,4 +97,4 @@ def update_data(n):
 
 
 if __name__ == '__main__':
-	app.run_server(host='0.0.0.0', port=5000)
+	app.run_server(host='0.0.0.0', port=5000, debug=True)

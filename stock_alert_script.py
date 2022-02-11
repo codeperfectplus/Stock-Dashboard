@@ -29,7 +29,7 @@ def check_alert(config):
     if stock_data['current_price'] < config['min_price']:
         difference = config['min_price'] - stock_data['current_price']
         difference = round(difference, 2)
-        message = '{} is currently down at: {}, min threshold: {}, difference: {}'.format(
+        message = ':arrow_down: {} is currently down at: {}, min threshold: {}, difference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
                             config['min_price'], 
@@ -41,7 +41,7 @@ def check_alert(config):
     if stock_data['current_price'] > config['max_price']:
         difference = stock_data['current_price'] - config['max_price']
         difference = round(difference, 2)
-        message = '{} is currently Up at: {}, max threshold: {}, difference: {}'.format(
+        message = ':arrow_up: {} is currently Up at: {}, max threshold: {}, difference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
                             config['max_price'], 
