@@ -12,6 +12,7 @@ current_time = datetime.now(IST).strftime('%H:%M:%S')
 
 def check_alert(config):
     stock_data = fetch_data(config['stock'])
+    print('Checking alert for {}'.format(config['stock']))
     # update csv
     with open('data/stock.csv', 'a') as f:
         f.write('{},{},{},{},{},{},{},{},{}\n'.format(
@@ -52,7 +53,6 @@ def check_alert(config):
         print("Max Price updated to {}".format(config['max_price']))
 
 def main():
-    print('Updating Config... {}'.format(current_time), end='\r')
     configs = read_config()
     for config in configs:
         check_alert(config)
