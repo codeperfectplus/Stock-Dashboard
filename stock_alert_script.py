@@ -11,7 +11,7 @@ current_time = datetime.now(IST).strftime('%H:%M:%S')
 
 
 def check_alert(config):
-    stock_data, url = fetch_data(config['stock'])
+    stock_data = fetch_data(config['stock'])
     print('Checking alert for {}'.format(config['stock']))
     # update csv
     with open('data/stock.csv', 'a') as f:
