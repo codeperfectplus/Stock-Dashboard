@@ -3,7 +3,7 @@ import time
 import pytz
 from datetime import datetime
 from fetch_data import fetch_data
-from utils import read_config, update_config, send_meeage_to_discord
+from utils import read_config, update_config, send_message_to_discord
 
 IST = pytz.timezone('Asia/Kolkata')
 
@@ -11,7 +11,7 @@ current_time = datetime.now(IST).strftime('%H:%M:%S')
 
 
 def check_alert(config):
-    stock_data = fetch_data(config['stock'])
+    stock_data, url = fetch_data(config['stock'])
     print('Checking alert for {}'.format(config['stock']))
     # update csv
     with open('data/stock.csv', 'a') as f:
@@ -30,26 +30,26 @@ def check_alert(config):
     if stock_data['current_price'] < config['min_price']:
         difference = config['min_price'] - stock_data['current_price']
         difference = round(difference, 2)
-        message = ':red_circle: {} is currently down at: {}, min threshold: {}, difference: {}'.format(
+        message = ':small_red_triangle_down: __**{}**__ \nCurrent Value: {}\nMin threshold: {}\ndifference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
                             config['min_price'], 
                             difference)
         config['min_price'] = stock_data['current_price']
-        send_meeage_to_discord(message)
+        send_message_to_discord(message)
         print("Min Price updated to {}".format(config['min_price']))
 
     if stock_data['current_price'] > config['max_price']:
         difference = stock_data['current_price'] - config['max_price']
         difference = round(difference, 2)
-        message = ':green_circle: {} is currently Up at: {}, max threshold: {}, difference: {}'.format(
+        message = ':arrow_up_small: __**{}**__ \nCurrent Value: {}\nMax threshold: {}\ndifference: {}'.format(
                             config['stock_name'], 
                             stock_data['current_price'],
                             config['max_price'], 
                             difference)
         
         config['max_price'] = stock_data['current_price']
-        send_meeage_to_discord(message)
+        send_message_to_discord(message)
         print("Max Price updated to {}".format(config['max_price']))
 
 def main():

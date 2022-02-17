@@ -1,1 +1,146 @@
-[{"stock_name": "Vodafone Idea Ltd", "stock": "IDEA:NSE", "min_price": 10.5, "max_price": 11.5}, {"stock_name": "Steel Authority of India Limited", "stock": "SAIL:NSE", "min_price": 100, "max_price": 130}, {"stock_name": "Birlasoft Ltd", "stock": "BSOFT:NSE", "min_price": 440, "max_price": 500}, {"stock_name": "Trident Ltd", "stock": "TRIDENT:NSE", "min_price": 56.7, "max_price": 70}, {"stock_name": "KPIT Technologies Ltd", "stock": "KPITTECH:NSE", "min_price": 577, "max_price": 700}, {"stock_name": "Jubilant Ingrevia Ltd", "stock": "JUBLINGREA:NSE", "min_price": 530, "max_price": 700}, {"stock_name": "Infosys Ltd", "stock": "INFY:NSE", "min_price": 1700, "max_price": 2000}, {"stock_name": "Tata Power Company Limited", "stock": "TATAPOWER:NSE", "min_price": 230, "max_price": 241.1}, {"stock_name": "Tata Motors Limited Fully Paid Ord. Shrs", "stock": "TATAMOTORS:NSE", "min_price": 490, "max_price": 510}, {"stock_name": "Coforge Ltd", "stock": "COFORGE:NSE", "min_price": 4500, "max_price": 4759}, {"stock_name": "Bharti Airtel Limited", "stock": "BHARTIARTL:NSE", "min_price": 700, "max_price": 750}, {"stock_name": "Coal India Ltd", "stock": "COALINDIA:NSE", "min_price": 160, "max_price": 170}, {"stock_name": "Hindustan Copper Ltd.", "stock": "HINDCOPPER:NSE", "min_price": 130, "max_price": 150}, {"stock_name": "Indian Oil Corporation Ltd", "stock": "IOC:NSE", "min_price": 110, "max_price": 140}, {"stock_name": "Oil & Natural Gas Corporation Limited", "stock": "ONGC:NSE", "min_price": 160, "max_price": 170}, {"stock_name": "Jindal Saw Limited", "stock": "JINDALSAW:NSE", "min_price": 90, "max_price": 120}, {"stock_name": "Reliance Industries Ltd", "stock": "RELIANCE:NSE", "min_price": 2350, "max_price": 2450}, {"stock_name": "Affle (India) Ltd", "stock": "AFFLE:NSE", "min_price": 1200, "max_price": 1300}, {"stock_name": "Borosil Renewables Ltd", "stock": "BORORENEW:NSE", "min_price": 600, "max_price": 700}, {"stock_name": "Gail India", "stock": "GAIL:NSE", "min_price": 140, "max_price": 150}, {"stock_name": "Zomato Ltd", "stock": "ZOMATO:NSE", "min_price": 88.8, "max_price": 100}, {"stock_name": "Yes Bank Limited", "stock": "YESBANK:NSE", "min_price": 13.8, "max_price": 14.05}, {"stock_name": "DLF Ltd", "stock": "DLF:NSE", "min_price": 377.65, "max_price": 395}, {"stock_name": "Larsen & Toubro Limited", "stock": "LT:NSE", "min_price": 1800, "max_price": 1900}, {"stock_name": "NTPC Limited", "stock": "NTPC:NSE", "min_price": 135, "max_price": 150}, {"stock_name": "ITC Ltd", "stock": "ITC:NSE", "min_price": 225, "max_price": 270}]
+[
+    {
+        "stock_name": "Vodafone Idea Ltd",
+        "stock": "IDEA:NSE",
+        "min_price": 10.5,
+        "max_price": 11.5
+    },
+    {
+        "stock_name": "Steel Authority of India Limited",
+        "stock": "SAIL:NSE",
+        "min_price": 100,
+        "max_price": 130
+    },
+    {
+        "stock_name": "Birlasoft Ltd",
+        "stock": "BSOFT:NSE",
+        "min_price": 440,
+        "max_price": 500
+    },
+    {
+        "stock_name": "Trident Ltd",
+        "stock": "TRIDENT:NSE",
+        "min_price": 56.7,
+        "max_price": 70
+    },
+    {
+        "stock_name": "KPIT Technologies Ltd",
+        "stock": "KPITTECH:NSE",
+        "min_price": 577,
+        "max_price": 700
+    },
+    {
+        "stock_name": "Jubilant Ingrevia Ltd",
+        "stock": "JUBLINGREA:NSE",
+        "min_price": 530,
+        "max_price": 700
+    },
+    {
+        "stock_name": "Infosys Ltd",
+        "stock": "INFY:NSE",
+        "min_price": 1700,
+        "max_price": 2000
+    },
+    {
+        "stock_name": "Tata Power Company Limited",
+        "stock": "TATAPOWER:NSE",
+        "min_price": 230,
+        "max_price": 241.1
+    },
+    {
+        "stock_name": "Tata Motors Limited",
+        "stock": "TATAMOTORS:NSE",
+        "min_price": 490,
+        "max_price": 510
+    },
+    {
+        "stock_name": "Coforge Ltd",
+        "stock": "COFORGE:NSE",
+        "min_price": 4500,
+        "max_price": 4759
+    },
+    {
+        "stock_name": "Bharti Airtel Limited",
+        "stock": "BHARTIARTL:NSE",
+        "min_price": 700,
+        "max_price": 750
+    },
+    {
+        "stock_name": "Coal India Ltd",
+        "stock": "COALINDIA:NSE",
+        "min_price": 160,
+        "max_price": 170
+    },
+    {
+        "stock_name": "Hindustan Copper Ltd.",
+        "stock": "HINDCOPPER:NSE",
+        "min_price": 130,
+        "max_price": 150
+    },
+    {
+        "stock_name": "Indian Oil Corporation Ltd",
+        "stock": "IOC:NSE",
+        "min_price": 110,
+        "max_price": 140
+    },
+    {
+        "stock_name": "Oil & Natural Gas Corporation Limited",
+        "stock": "ONGC:NSE",
+        "min_price": 160,
+        "max_price": 170
+    },
+    {
+        "stock_name": "Reliance Industries Ltd",
+        "stock": "RELIANCE:NSE",
+        "min_price": 2350,
+        "max_price": 2450
+    },
+    {
+        "stock_name": "Affle (India) Ltd",
+        "stock": "AFFLE:NSE",
+        "min_price": 1200,
+        "max_price": 1300
+    },
+    {
+        "stock_name": "Borosil Renewables Ltd",
+        "stock": "BORORENEW:NSE",
+        "min_price": 600,
+        "max_price": 700
+    },
+    {
+        "stock_name": "Gail India",
+        "stock": "GAIL:NSE",
+        "min_price": 140,
+        "max_price": 150
+    },
+    {
+        "stock_name": "Zomato Ltd",
+        "stock": "ZOMATO:NSE",
+        "min_price": 88.8,
+        "max_price": 100
+    },
+    {
+        "stock_name": "Yes Bank Limited",
+        "stock": "YESBANK:NSE",
+        "min_price": 13.8,
+        "max_price": 14.05
+    },
+    {
+        "stock_name": "Larsen & Toubro Limited",
+        "stock": "LT:NSE",
+        "min_price": 1800,
+        "max_price": 1900
+    },
+    {
+        "stock_name": "NTPC Limited",
+        "stock": "NTPC:NSE",
+        "min_price": 135,
+        "max_price": 150
+    },
+    {
+        "stock_name": "ITC Ltd",
+        "stock": "ITC:NSE",
+        "min_price": 225,
+        "max_price": 270
+    }
+]

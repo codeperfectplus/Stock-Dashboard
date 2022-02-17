@@ -15,7 +15,7 @@ def read_config():
     return configs
 
 
-def send_meeage_to_discord(message):
+def send_message_to_discord(message):
     """ Send message to discord webhook """
     print("Sending message to discord: {}".format(message))
     print(message)
