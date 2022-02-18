@@ -10,19 +10,6 @@ warnings.filterwarnings("ignore")
 IST = pytz.timezone('Asia/Kolkata')
 today_date = datetime.datetime.now(IST).strftime('%d-%m-%Y')
 
-# change min and max time from 9 to 16
-min_time = today_date + ' 09:00:00'
-max_time = today_date + ' 16:00:00'
-
-#change str date to datetime
-min_time = datetime.datetime.strptime(min_time, '%d-%m-%Y %H:%M:%S')
-max_time = datetime.datetime.strptime(max_time, '%d-%m-%Y %H:%M:%S')
-
-print('Min Time: ', min_time)
-print('Max Time: ', max_time)
-
-
-
 app = Dash(__name__)
 app.title = 'Stock Alert Dashboard - Beta Version'
 
@@ -56,6 +43,20 @@ def get_filtered_data():
 	return df, fd1, fd2, lastest_date[0]
 
 df, fd1, fd2, latest_date = get_filtered_data()
+
+# change min and max time from 9 to 16
+min_time = today_date + ' 09:00:00'
+max_time = today_date + ' 16:00:00'
+
+#change str date to datetime
+min_time = datetime.datetime.strptime(min_time, '%d-%m-%Y %H:%M:%S')
+max_time = datetime.datetime.strptime(max_time, '%d-%m-%Y %H:%M:%S')
+
+if latest_date < max_time:
+	max_time = latest_date
+
+print('Min Time: ', min_time)
+print('Max Time: ', max_time)
 
 def get_dash_table(table_id, df):
 	return dash_table.DataTable(
