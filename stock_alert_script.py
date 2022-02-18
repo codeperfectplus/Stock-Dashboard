@@ -15,7 +15,7 @@ def check_alert(config):
     print('Checking alert for {}'.format(config['stock']))
     # update csv
     with open('data/stock.csv', 'a') as f:
-        f.write('{},{},{},{},{},{},{},{},{}\n'.format(
+        f.write('{},{},{},{},{},{},{},{},{},{}\n'.format(
             config['stock_name'],
             stock_data['previous_close'],
             stock_data['current_price'],
@@ -24,7 +24,8 @@ def check_alert(config):
             config['min_price'],
             config['max_price'],
             stock_data['date_time'],
-            stock_data['current_price'] - stock_data['previous_close']
+            stock_data['current_price'] - stock_data['previous_close'],
+            config['watch']
             ))
         
     if stock_data['current_price'] < config['min_price']:
