@@ -1,26 +1,21 @@
-# coding: utf-8
+
 import time
-import pytz
-from datetime import datetime
 from fetch_data import fetch_data
 from utils import read_config, update_config, send_message_to_discord
-
-IST = pytz.timezone('Asia/Kolkata')
-
-current_time = datetime.now(IST).strftime('%H:%M:%S')
-
 
 def check_alert(config):
     stock_data = fetch_data(config['stock'])
     print('Checking alert for {}'.format(config['stock']))
     # update csv
     with open('data/stock.csv', 'a') as f:
-        f.write('{},{},{},{},{},{},{},{},{},{}\n'.format(
+        f.write('{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
             config['stock_name'],
             stock_data['previous_close'],
             stock_data['current_price'],
             stock_data['day_min'],
             stock_data['day_max'],
+            stock_data['year_min'],
+            stock_data['year_max'],
             config['min_price'],
             config['max_price'],
             stock_data['date_time'],
