@@ -36,6 +36,7 @@ def get_filtered_data():
 	filtered_df = df[df['Last Update'].isin(lastest_date)]
 	filtered_df.sort_values(by=['difference'], inplace=True, ascending=False)
 	filtered_df["Last Update"] = filtered_df["Last Update"].apply(lambda x: x.strftime('%H:%M:%S'))
+	df["Last Update"] = df["Last Update"].apply(lambda x: x.strftime('%H:%M:%S'))
 	fd1 = filtered_df[filtered_df['watch'] == True]
 	fd2 = filtered_df[filtered_df['watch'] == False]
 	fd1 = fd1[columns]
@@ -45,18 +46,12 @@ def get_filtered_data():
 df, fd1, fd2, latest_date = get_filtered_data()
 
 # change min and max time from 9 to 16
-min_time = today_date + ' 09:00:00'
-max_time = today_date + ' 16:00:00'
+min_time = '09:00:00'
+max_time = '16:00:00'
 
 #change str date to datetime
-min_time = datetime.datetime.strptime(min_time, '%d-%m-%Y %H:%M:%S')
-max_time = datetime.datetime.strptime(max_time, '%d-%m-%Y %H:%M:%S')
-
-if latest_date < max_time:
-	max_time = latest_date
-
-print('Min Time: ', min_time)
-print('Max Time: ', max_time)
+min_time = datetime.datetime.strptime(min_time, '%H:%M:%S')
+max_time = datetime.datetime.strptime(max_time, '%H:%M:%S')
 
 def get_dash_table(table_id, df):
 	return dash_table.DataTable(
@@ -121,7 +116,8 @@ app.layout = html.Div([
 	]),
 	# graph by stock name select box
 	html.Div([
-		html.Label('Select Stock Name', style={'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
+		html.H3('Graph for Stock Data', style={'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New',
+			'font-size': '30px', 'font-weight': 'bold', 'margin-top': '20px'}),
 		dcc.Dropdown(
 			id='stock-name-select',
 			options=[{'label': i, 'value': i} for i in df['Stock Name'].unique()],
@@ -205,8 +201,7 @@ def update_graph(stock_name, n):
 			'xanchor':"right",
 			'x':2,
 			'yaxis': {'range': [min(filtered_df['Minimum(Threshold)']) - 10, max(filtered_df['Maximum(Threshold)']) + 10]},
-			'xaxis': {'range': [min_time, max_time]}
-
+			'xaxis': {'range': [min_time, max_time]},
 		}
 	}
 
