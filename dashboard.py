@@ -1,4 +1,3 @@
-from turtle import fd
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc, dash_table, Input, Output
