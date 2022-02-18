@@ -1,7 +1,12 @@
-
 import time
+import pytz
+import datetime
 from fetch_data import fetch_data
 from utils import read_config, update_config, send_message_to_discord
+
+IST = pytz.timezone('Asia/Kolkata')
+
+current_time = datetime.datetime.now(IST).strftime('%H:%M:%S')
 
 def check_alert(config):
     stock_data = fetch_data(config['stock'])
@@ -56,5 +61,9 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        main()
-        time.sleep(30)
+        if current_time > '08:55:00' and current_time < '15:30:00':
+            main()
+            time.sleep(30)
+        else:
+            print('Market is closed')
+            time.sleep(300)
