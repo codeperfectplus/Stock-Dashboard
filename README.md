@@ -4,6 +4,10 @@ Dashboard to track the stock market and send notifications when the stock price 
 
 Data for stocks is scrapped from [Google Finance](https://www.google.com/finance/).
 
+## Demo 
+
+A Demo can be check here:- [Demo](http://13.235.246.34:5000/)
+
 ## How to use
 
 ### for sending stock alert in discord channel
@@ -23,7 +27,8 @@ python dashboard.py
 
 ## Dashboard Table
 
-![Dashboard Table](/images/sample.png)
+![Dashboard table](/images/sample3.png)
+
 
 # Dashboard Graph
 
