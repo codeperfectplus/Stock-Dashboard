@@ -53,6 +53,24 @@ def check_alert(config):
         send_message_to_discord(message)
         print("Max Price updated to {}".format(config['max_price']))
 
+def check_overall():
+    symbols = {'BSE SENSEX': 'SENSEX:INDEXBOM', 'NIFTY 50': 'NIFTY_50:INDEXNSE'}
+    for stock_name, symbol in symbols.items():
+        stock_data = fetch_data(symbol)
+        print('Checking alert for {}'.format(symbol))
+        with open('data/market.csv', 'a') as f:
+            f.write('{},{},{},{},{},{},{},{},{}\n'.format(
+                stock_name,
+                stock_data['previous_close'],
+                stock_data['current_price'],
+                stock_data['day_min'],
+                stock_data['day_max'],
+                stock_data['year_min'],
+                stock_data['year_max'],
+                stock_data['date_time'],
+                stock_data['current_price'] - stock_data['previous_close'],
+                )) 
+
 def main():
     configs = read_config()
     for config in configs:
@@ -62,6 +80,7 @@ def main():
 if __name__ == '__main__':
     while True:
         if current_time > '08:55:00' and current_time < '15:30:00':
+            check_overall()
             main()
             time.sleep(30)
         else:

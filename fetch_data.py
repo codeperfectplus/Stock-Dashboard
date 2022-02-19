@@ -28,7 +28,10 @@ def fetch_data(stock):
     data['day_max'] = sidebar_data[2]
     data['year_min'] = sidebar_data[3]
     data['year_max'] = sidebar_data[4]
-    data['market_cap'] = sidebar_data[5]
     data['date_time'] = datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S")
-
+    try:
+        data['market_cap'] = sidebar_data[5]
+        
+    except Exception as e:
+        print(e)
     return data
