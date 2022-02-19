@@ -176,7 +176,7 @@ app.layout = html.Div([
 @app.callback(
     Output('buy-table', 'data'),
     Input('interval-component', 'n_intervals'))
-def update_data(n):
+def update_buy_table(n):
     _, fd1, _ = get_filtered_data()
 
     return fd1.to_dict('records')
@@ -185,7 +185,7 @@ def update_data(n):
 @app.callback(
     Output('watch-table', 'data'),
     Input('interval-component', 'n_intervals'))
-def update_data(n):
+def update_watch_table(n):
     _, _, fd2 = get_filtered_data()
 
     return fd2.to_dict('records')
@@ -194,7 +194,7 @@ def update_data(n):
 @app.callback(
     Output('overall-table', 'data'),
     Input('interval-component', 'n_intervals'))
-def update_data(n):
+def update_index_table(n):
     market_data, _ = overall_market_data()
     return market_data.to_dict('records')
 
@@ -204,7 +204,7 @@ def update_data(n):
     Input('interval-component', 'n_intervals'))
 def update_badge(n):
 
-    _, lastest_date = overall_market_data()
+    _, latest_date = overall_market_data()
 
     return "Dashboard last updated at {}".format(latest_date.strftime('%d-%m-%Y %H:%M:%S'))
 
