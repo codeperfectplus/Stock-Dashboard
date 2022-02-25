@@ -94,7 +94,7 @@
         "symbol": "BHARTIARTL:NSE",
         "min_price": 700,
         "max_price": 750,
-        "buy": false,
+        "buy": true,
         "market": "IN",
         "currency": "INR"
     },
