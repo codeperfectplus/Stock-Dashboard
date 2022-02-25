@@ -42,11 +42,9 @@ def get_filtered_data():
 
     filtered_df = df[df['Last Update'].isin(lastest_date)]
     filtered_df.sort_values(by=['difference(%)'], inplace=True, ascending=False)
-    df['difference(%)'] = df['difference(%)'].apply(lambda x: '{} %'.format(x))
-    filtered_df["Last Update"] = filtered_df["Last Update"].apply(
-        lambda x: x.strftime('%H:%M:%S'))
-    df["Last Update"] = df["Last Update"].apply(
-        lambda x: x.strftime('%H:%M:%S'))
+    filtered_df['difference(%)'] = filtered_df['difference(%)'].apply(lambda x: '{} %'.format(x))
+    filtered_df["Last Update"] = filtered_df["Last Update"].apply(lambda x: x.strftime('%H:%M:%S'))
+    df["Last Update"] = df["Last Update"].apply(lambda x: x.strftime('%H:%M:%S'))
 
     indian_stocks = filtered_df[filtered_df['market'] == 'IN']
 
