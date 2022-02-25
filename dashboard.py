@@ -27,7 +27,9 @@ def get_filtered_data():
                        8: 'Maximum(Threshold)',
                        9: 'Last Update',
                        10: 'difference',
-                       11: 'watch'}, inplace=True)
+                       11: 'buy',
+                       12: 'market',
+                       13: 'currency'}, inplace=True)
 
     columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference',
                'Minimum(Day)', 'Maximum(Day)', 'Minimum(Year)', 'Maximum(Year)', 'Minimum(Threshold)', 'Maximum(Threshold)']
@@ -42,11 +44,19 @@ def get_filtered_data():
         lambda x: x.strftime('%H:%M:%S'))
     df["Last Update"] = df["Last Update"].apply(
         lambda x: x.strftime('%H:%M:%S'))
-    fd1 = filtered_df[filtered_df['watch'] == True]
-    fd2 = filtered_df[filtered_df['watch'] == False]
-    fd1 = fd1[columns]
-    fd2 = fd2[columns]
-    return df, fd1, fd2
+
+    indian_stocks = filtered_df[filtered_df['market'] == 'IN']
+
+    buy_table = indian_stocks[indian_stocks['buy'] == True]
+    watch_table = indian_stocks[indian_stocks['buy'] == False]
+
+    buy_table = buy_table[columns]
+    watch_table = watch_table[columns]
+
+    us_stocks = filtered_df[filtered_df['market'] == 'US']
+    us_stocks = us_stocks[columns]
+
+    return df, buy_table, watch_table, us_stocks
 
 
 def overall_market_data():
@@ -71,7 +81,7 @@ def overall_market_data():
     return filtered_df, lastest_date[0]
 
 
-df, fd1, fd2 = get_filtered_data()
+df, buy_table, watch_table, us_stocks = get_filtered_data()
 market_data, latest_date = overall_market_data()
 
 min_time = '09:00:00'
@@ -124,34 +134,40 @@ def get_dash_table(table_id, df):
 
 
 app.layout = html.Div([
-    dbc.Row([
-        html.H1('Stock Alert Dashboard(v1.0)',
-                style={'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New',
-                       'font-size': '30px', 'font-weight': 'bold', 'margin-top': '20px'}),
-        # update dbc badge
-        html.H3(id='last-update-badge', style={'textAlign': 'center', 'color': '#0099ff',
-                                               'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
+    
+    html.H1('Stock Alert Dashboard(v1.0)',
+            style={'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New',
+                    'font-size': '30px', 'font-weight': 'bold', 'margin-top': '20px'}),
+    # update dbc badge
+    html.H3(id='last-update-badge', style={'textAlign': 'center', 'color': '#0099ff',
+                                            'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
 
-        # overall market table
-        html.H2('OverAll Market Status', style={
-            'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
-    ]),
+    # overall market table
+    html.H2('OverAll Market Status', style={
+        'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
     get_dash_table('overall-table', market_data),
 
-    # buy table and watch table
-    html.H2('Buy List',  style={'textAlign': 'center', 'color': '#0099ff',
-                                'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold', 'margin-top': '20px'}),
-    dbc.Row([
-        get_dash_table('buy-table', fd1),
-        dcc.Interval(
+    dcc.Interval(
             id='interval-component',
             interval=5*1000,
-            n_intervals=0
-        ),
-        html.H2('Watch List',  style={'textAlign': 'center', 'color': '#0099ff',
-                                      'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold'}),
-        get_dash_table('watch-table', fd2),
+            n_intervals=0),
+
+    # buy table and watch table
+    dbc.Row([
+        html.H2('Buy Stocks(INR)',  style={'textAlign': 'center', 'color': '#0099ff',
+                                'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold', 'margin-top': '20px'}),
+        get_dash_table('buy-table', buy_table),
+
+        html.H2('Watch Stocks(INR)',  style={'textAlign': 'center', 'color': '#0099ff',
+                                      'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold', 'margin-top': '20px'}),
+        get_dash_table('watch-table', watch_table),
+
+        html.H2('US Stocks($)',  style={'textAlign': 'center', 'color': '#0099ff',
+                                      'font-family': 'Courier New', 'font-size': '20px', 'font-weight': 'bold', 'margin-top': '20px'}),
+        
+        get_dash_table('us-table', us_stocks),
     ]),
+    
 
     # graph by stock name select box
     html.Div([
@@ -177,18 +193,26 @@ app.layout = html.Div([
     Output('buy-table', 'data'),
     Input('interval-component', 'n_intervals'))
 def update_buy_table(n):
-    _, fd1, _ = get_filtered_data()
+    _, buy_table, _, _ = get_filtered_data()
 
-    return fd1.to_dict('records')
+    return buy_table.to_dict('records')
 
 
 @app.callback(
     Output('watch-table', 'data'),
     Input('interval-component', 'n_intervals'))
 def update_watch_table(n):
-    _, _, fd2 = get_filtered_data()
+    _, _, watch_table, _ = get_filtered_data()
 
-    return fd2.to_dict('records')
+    return watch_table.to_dict('records')
+
+@app.callback(
+    Output('us-table', 'data'),
+    Input('interval-component', 'n_intervals'))
+def update_watch_table(n):
+    _, _, _, us_stocks = get_filtered_data()
+
+    return us_stocks.to_dict('records')
 
 
 @app.callback(
@@ -214,7 +238,7 @@ def update_badge(n):
     Input('stock-name-select', 'value'),
     Input('interval-component', 'n_intervals'))
 def update_graph(stock_name, n):
-    df, _, _ = get_filtered_data()
+    df, _, _, _= get_filtered_data()
     filtered_df = df[df['Stock Name'] == stock_name]
 
     return {
@@ -241,7 +265,7 @@ def update_graph(stock_name, n):
         }],
 
         'layout': {
-            'title': stock_name,
+            'title': '{}- ({}) @ {}'.format(stock_name, filtered_df['market'].iloc[-1], filtered_df['Current Price'].iloc[-1]),
             'xaxis': {'title': 'Date',
                       'autorange': True,
                       'showgrid': True,
@@ -253,7 +277,7 @@ def update_graph(stock_name, n):
                       'tickangle': 90,
                       'tickfont': {'size': 10},
                       'range': [min_time, max_time]},
-            'yaxis': {'title': 'Price',
+            'yaxis': {'title': 'Price(Per Stock)-{}'.format(filtered_df['currency'].iloc[-1]),
                       'range': [min(filtered_df['Minimum(Threshold)']) - 10, max(filtered_df['Maximum(Threshold)']) + 10]},
             'height': 600,
             'margin': {'l': 60, 'r': 10},

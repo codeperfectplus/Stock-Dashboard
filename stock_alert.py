@@ -1,4 +1,6 @@
+from logging import shutdown
 import time
+import shutil
 import pytz
 import datetime
 from fetch_data import fetch_data
@@ -9,11 +11,11 @@ IST = pytz.timezone('Asia/Kolkata')
 current_time = datetime.datetime.now(IST).strftime('%H:%M:%S')
 
 def check_alert(config):
-    stock_data = fetch_data(config['stock'])
-    print('Checking alert for {}'.format(config['stock']))
+    stock_data = fetch_data(config['symbol'])
+    print('Checking alert for {}'.format(config['symbol']))
     # update csv
     with open('data/stock.csv', 'a') as f:
-        f.write('{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
+        f.write('{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
             config['stock_name'],
             stock_data['previous_close'],
             stock_data['current_price'],
@@ -25,7 +27,9 @@ def check_alert(config):
             config['max_price'],
             stock_data['date_time'],
             stock_data['current_price'] - stock_data['previous_close'],
-            config['watch']
+            config['buy'],
+            config['market'],
+            config['currency']
             ))
         
     if stock_data['current_price'] < config['min_price']:
@@ -82,7 +86,9 @@ if __name__ == '__main__':
         if current_time > '08:55:00' and current_time < '15:30:00':
             check_overall()
             main()
-            time.sleep(30)
+            time.sleep(20)
         else:
             print('Market is closed')
+            # delte csv file
+            shutil.rmtree('data/stock.csv', ignore_errors=True)
             time.sleep(300)
