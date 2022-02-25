@@ -27,13 +27,16 @@ def get_filtered_data():
                        8: 'Maximum(Threshold)',
                        9: 'Last Update',
                        10: 'difference',
-                       11: 'buy',
-                       12: 'market',
-                       13: 'currency'}, inplace=True)
+                       11: 'difference(%)',
+                       12: 'buy',
+                       13: 'market',
+                       14: 'currency'}, inplace=True)
 
-    columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference',
+
+    columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference', 'difference(%)',
                'Minimum(Day)', 'Maximum(Day)', 'Minimum(Year)', 'Maximum(Year)', 'Minimum(Threshold)', 'Maximum(Threshold)']
     df = df.round(2)
+    df['difference(%)'] = df['difference(%)'].apply(lambda x: '{} %'.format(x))
     df['Last Update'] = pd.to_datetime(df['Last Update'])
     lastest_date = df.groupby(['Stock Name'])[
         'Last Update'].max().reset_index()['Last Update']
@@ -61,7 +64,7 @@ def get_filtered_data():
 
 def overall_market_data():
     market_data = pd.read_csv('data/market.csv', header=None)
-    columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference',
+    columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference', 'difference(%)',
                'Minimum(Day)', 'Maximum(Day)', 'Minimum(Year)', 'Maximum(Year)']
     market_data.rename(columns={0: 'Stock Name',
                                 1: 'Previous Close',
@@ -71,7 +74,8 @@ def overall_market_data():
                                 5: 'Minimum(Year)',
                                 6: 'Maximum(Year)',
                                 7: 'Last Update',
-                                8: 'difference'}, inplace=True)
+                                8: 'difference',
+                                9: 'difference(%)'}, inplace=True)
     market_data = market_data.round(2)
     market_data['Last Update'] = pd.to_datetime(market_data['Last Update'])
     lastest_date = market_data.groupby(['Stock Name'])['Last Update'].max().reset_index()['Last Update']
@@ -289,4 +293,4 @@ def update_graph(stock_name, n):
 
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=5000)
+    app.run_server(host='0.0.0.0', port=5000, debug=True)

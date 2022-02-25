@@ -14,8 +14,10 @@ def check_alert(config):
     stock_data = fetch_data(config['symbol'])
     print('Checking alert for {}'.format(config['symbol']))
     # update csv
+    difference = stock_data['current_price'] - stock_data['previous_close']
+    difference_percentage = (difference / stock_data['previous_close']) * 100
     with open('data/stock.csv', 'a') as f:
-        f.write('{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
+        f.write('{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
             config['stock_name'],
             stock_data['previous_close'],
             stock_data['current_price'],
@@ -26,7 +28,8 @@ def check_alert(config):
             config['min_price'],
             config['max_price'],
             stock_data['date_time'],
-            stock_data['current_price'] - stock_data['previous_close'],
+            difference,
+            difference_percentage,
             config['buy'],
             config['market'],
             config['currency']
@@ -62,8 +65,10 @@ def check_overall():
     for stock_name, symbol in symbols.items():
         stock_data = fetch_data(symbol)
         print('Checking alert for {}'.format(symbol))
+        differnce = stock_data['current_price'] - stock_data['previous_close']
+        differnce_percentage = (differnce / stock_data['previous_close']) * 100
         with open('data/market.csv', 'a') as f:
-            f.write('{},{},{},{},{},{},{},{},{}\n'.format(
+            f.write('{},{},{},{},{},{},{},{},{},{}\n'.format(
                 stock_name,
                 stock_data['previous_close'],
                 stock_data['current_price'],
@@ -72,7 +77,8 @@ def check_overall():
                 stock_data['year_min'],
                 stock_data['year_max'],
                 stock_data['date_time'],
-                stock_data['current_price'] - stock_data['previous_close'],
+                differnce,
+                differnce_percentage
                 )) 
 
 def main():
