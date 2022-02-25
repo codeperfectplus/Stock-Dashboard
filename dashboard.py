@@ -36,13 +36,13 @@ def get_filtered_data():
     columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference', 'difference(%)',
                'Minimum(Day)', 'Maximum(Day)', 'Minimum(Year)', 'Maximum(Year)', 'Minimum(Threshold)', 'Maximum(Threshold)']
     df = df.round(2)
-    df['difference(%)'] = df['difference(%)'].apply(lambda x: '{} %'.format(x))
     df['Last Update'] = pd.to_datetime(df['Last Update'])
     lastest_date = df.groupby(['Stock Name'])[
         'Last Update'].max().reset_index()['Last Update']
 
     filtered_df = df[df['Last Update'].isin(lastest_date)]
-    filtered_df.sort_values(by=['difference'], inplace=True, ascending=False)
+    filtered_df.sort_values(by=['difference(%)'], inplace=True, ascending=False)
+    df['difference(%)'] = df['difference(%)'].apply(lambda x: '{} %'.format(x))
     filtered_df["Last Update"] = filtered_df["Last Update"].apply(
         lambda x: x.strftime('%H:%M:%S'))
     df["Last Update"] = df["Last Update"].apply(
