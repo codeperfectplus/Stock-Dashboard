@@ -1,8 +1,11 @@
+import os
 import pytz
 import datetime
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc, dash_table, Input, Output
+
+from utils import root_dir
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -13,9 +16,8 @@ today_date = datetime.datetime.now(IST).strftime('%d-%m-%Y')
 app = Dash(__name__)
 app.title = 'Stock Alert Dashboard(v1.0)'
 
-
 def get_filtered_data():
-    df = pd.read_csv('data/stock.csv', header=None)
+    df = pd.read_csv(os.path.join(root_dir, 'data/stock.csv'), header=None)
     df.rename(columns={0: 'Stock Name',
                        1: 'Previous Close',
                        2: 'Current Price',
@@ -61,7 +63,7 @@ def get_filtered_data():
 
 
 def overall_market_data():
-    market_data = pd.read_csv('data/market.csv', header=None)
+    market_data = pd.read_csv(os.path.join(root_dir, 'data/market.csv'), header=None)
     columns = ['Stock Name', 'Previous Close', 'Current Price', 'difference', 'difference(%)',
                'Minimum(Day)', 'Maximum(Day)', 'Minimum(Year)', 'Maximum(Year)']
     market_data.rename(columns={0: 'Stock Name',

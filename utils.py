@@ -1,15 +1,19 @@
+import os
 import json
 from discord import Webhook, RequestsWebhookAdapter
 
-discord_webhook_url = "https://discord.com/api/webhooks/946623261708550144/DDMYbeTMk2nA4l-4iG2WlqkXlAVbmuwK_6oIV1fndRyeA8lmPmXl8WJU_pmPGUXRO9lj"
+discord_webhook_url = ""
+
+root_dir = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(root_dir, 'config.json')
 
 def update_config(data):
-    with open('config.json', 'w') as f:
+    with open(config_path, 'w') as f:
         json.dump(data, f)
 
 
 def read_config():
-    with open('config.json', 'r') as f:
+    with open(config_path, 'r') as f:
         configs = json.load(f)
     
     return configs

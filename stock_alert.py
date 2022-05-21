@@ -1,10 +1,11 @@
-from logging import shutdown
+import os
+from logging import root, shutdown
 import time
 import shutil
 import pytz
 import datetime
 from fetch_data import fetch_data
-from utils import read_config, update_config, send_message_to_discord
+from utils import read_config, update_config, send_message_to_discord, root_dir
 
 IST = pytz.timezone('Asia/Kolkata')
 
@@ -16,7 +17,7 @@ def check_alert(config):
     # update csv
     difference = stock_data['current_price'] - stock_data['previous_close']
     difference_percentage = (difference / stock_data['previous_close']) * 100
-    with open('data/stock.csv', 'a') as f:
+    with open(os.path.join(root_dir, 'data/stock.csv'), 'a') as f:
         f.write('{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(
             config['stock_name'],
             stock_data['previous_close'],
@@ -67,7 +68,7 @@ def check_overall():
         print('Checking alert for {}'.format(symbol))
         differnce = stock_data['current_price'] - stock_data['previous_close']
         differnce_percentage = (differnce / stock_data['previous_close']) * 100
-        with open('data/market.csv', 'a') as f:
+        with open(os.path.join(root_dir, 'data/market.csv'), 'a') as f:
             f.write('{},{},{},{},{},{},{},{},{},{}\n'.format(
                 stock_name,
                 stock_data['previous_close'],
