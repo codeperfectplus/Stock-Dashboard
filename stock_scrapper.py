@@ -4,8 +4,8 @@ import time
 import shutil
 import pytz
 import datetime
-from fetch_data import fetch_data
-from utils import read_config, update_config, send_message_to_discord, root_dir
+from src.fetch_data import fetch_data
+from src.utils import read_config, update_config, root_dir
 
 IST = pytz.timezone('Asia/Kolkata')
 
@@ -45,7 +45,7 @@ def check_alert(config):
                             config['min_price'], 
                             difference)
         config['min_price'] = stock_data['current_price']
-        send_message_to_discord(message)
+        #send_message_to_discord(message)
         print("Min Price updated to {}".format(config['min_price']))
 
     if stock_data['current_price'] > config['max_price']:
@@ -58,7 +58,7 @@ def check_alert(config):
                             difference)
         
         config['max_price'] = stock_data['current_price']
-        send_message_to_discord(message)
+        #send_message_to_discord(message)
         print("Max Price updated to {}".format(config['max_price']))
 
 def check_overall():

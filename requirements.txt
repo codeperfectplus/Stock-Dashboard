@@ -2,5 +2,6 @@ requests
 pandas
 dash
 discord
+discord-webhook
 beautifulsoup4
 dash_bootstrap_components
