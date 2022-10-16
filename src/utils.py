@@ -1,6 +1,8 @@
 import os
 import json
 from discord import Webhook
+from discord_webhook import DiscordWebhook
+
 
 discord_webhook_url = ""
 
@@ -19,9 +21,6 @@ def read_config():
     return configs
 
 
-# def send_message_to_discord(message):
-#     """ Send message to discord webhook """
-#     print("Sending message to discord: {}".format(message))
-#     print(message)
-#     webhook = Webhook.from_url(discord_webhook_url, adapter=RequestsWebhookAdapter())
-#     webhook.send(message)
+def send_message_to_discord(message):
+    webhook = DiscordWebhook(url=discord_webhook_url, content=message)
+    response = webhook.execute()
