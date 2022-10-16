@@ -4,7 +4,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 
 discord_webhook_url = "https://discord.com/api/webhooks/832610199613210646/WuPRjWtvLe3NFAqyUqXtkC_l5irBQcor-XKBLv5IvZ1-p2F8R0q7Y3MepckZNbVy4AO9"
 
-root_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config_path = os.path.join(root_dir, 'src/config.json')
 
 def update_config(data):

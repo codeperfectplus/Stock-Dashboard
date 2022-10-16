@@ -1,3 +1,5 @@
+#!/bin/bash
 cd /app
 
-exec python dash_server.py
+nohup python3 dash_server.py &
+tail -100f nohup.out
