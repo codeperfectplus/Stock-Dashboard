@@ -1,0 +1,21 @@
+version: '2'
+services:
+
+  server-dev:
+    image: server-dev:latest
+    build: 
+        context: .
+        dockerfile: dockerFiles/Dockerfile.server
+    entrypoint: /app/scripts/server.sh
+    tty: true
+    ports:
+      - "5000:5000"
+    stdin_open: true
+    
+  scrapper-dev:
+    image: server-dash:latest
+    build: 
+        context: .
+        dockerfile: dockerFiles/Dockerfile.scrapper
+    tty: true
+    entrypoint: /app/scripts/scrapper.sh

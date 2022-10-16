@@ -5,7 +5,7 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc, dash_table, Input, Output
 
-from utils import root_dir
+from src.utils import root_dir
 
 import warnings
 warnings.filterwarnings("ignore")

@@ -1,0 +1,19 @@
+FROM python:3.7.3-alpine3.9
+USER root
+
+# Create a working directory
+RUN mkdir /app
+WORKDIR /app
+RUN chmod 777 /app
+
+# Install python packages from requirements file
+RUN python -m pip install --upgrade pip
+ADD requirements.txt /app/
+RUN pip install --trusted-host pypi.python.org --no-cache-dir -r /app/requirements.txt
+
+ADD . /app/
+RUN which python \
+ && export PYTHONPATH=.
+
+WORKDIR /app
+RUN chmod 755 /app/scripts/server.sh
