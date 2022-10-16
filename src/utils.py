@@ -2,7 +2,7 @@ import os
 import json
 from discord import Webhook
 from discord_webhook import DiscordWebhook
-
+from time import sleep
 
 discord_webhook_url = ""
 
@@ -24,3 +24,10 @@ def read_config():
 def send_message_to_discord(message):
     webhook = DiscordWebhook(url=discord_webhook_url, content=message)
     response = webhook.execute()
+
+def edit_webhook_message(message):
+    webhook = DiscordWebhook(url=discord_webhook_url, content='')
+    sent_webhook = webhook.execute()
+    webhook.content = 'After Edit'
+    sleep(10)
+    sent_webhook = webhook.edit(sent_webhook)
