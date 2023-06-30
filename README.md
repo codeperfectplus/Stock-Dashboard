@@ -16,13 +16,13 @@ A Demo can be check here:- [Demo](http://13.235.246.34:5000/)
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python stock_alert.py 
+python stock_scrapper.py 
 ```
 
 ### for running dashboard
 
 ```bash
-python dashboard.py
+python dash_server.py
 ```
 
 ## Dashboard Table
