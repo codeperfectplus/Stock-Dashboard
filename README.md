@@ -36,7 +36,7 @@ python dash_server.py
 
 
 - Update the webhook url in the utils.py, webhook url can be found in the discord channel.
-- Update the config.json with your favorite stocks and thresholds.
+- Update the config.json with your favorite stocks and thresholds
 
 ## Upcoming features
 
