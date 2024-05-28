@@ -14,7 +14,7 @@ IST = pytz.timezone('Asia/Kolkata')
 today_date = datetime.datetime.now(IST).strftime('%d-%m-%Y')
 
 app = Dash(__name__)
-app.title = 'Stock Alert Dashboard(v1.0)'
+app.title = 'Stock Alert Dashboard(v1.1)'
 
 def get_filtered_data():
     df = pd.read_csv(os.path.join(root_dir, 'data/stock.csv'), header=None)
@@ -139,7 +139,7 @@ def get_dash_table(table_id, df):
 
 app.layout = html.Div([
     
-    html.H1('Stock Alert Dashboard(v1.0)',
+    html.H1('Stock Alert Dashboard(v1.1)',
             style={'textAlign': 'center', 'color': '#0099ff', 'font-family': 'Courier New',
                     'font-size': '30px', 'font-weight': 'bold', 'margin-top': '20px'}),
     # update dbc badge

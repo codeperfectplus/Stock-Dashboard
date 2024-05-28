@@ -9,7 +9,6 @@ from src.utils import read_config, update_config, root_dir
 
 IST = pytz.timezone('Asia/Kolkata')
 
-current_time = datetime.datetime.now(IST).strftime('%H:%M:%S')
 
 def check_alert(config):
     stock_data = fetch_data(config['symbol'])
@@ -88,14 +87,36 @@ def main():
         check_alert(config)
     update_config(configs)
 
+
+def print_time_left(minutes_left, print_time_delay=1):
+    seconds_left = minutes_left * 60
+    while seconds_left > 0:
+        print("Remaining time: {} mins".format(round(seconds_left / 60, 2)), end='\r')
+        time.sleep(print_time_delay)
+        seconds_left -= print_time_delay
+        minutes_left -= print_time_delay / 60
+
 if __name__ == '__main__':
     while True:
-        if current_time > '08:55:00' and current_time < '15:30:00':
+        market_open_timing = '09:00:00'
+        market_close_timing = '15:30:00'
+        current_time = datetime.datetime.now(IST).strftime('%H:%M:%S')
+        current_day = datetime.datetime.now(IST).strftime('%A')
+        if current_day in ['Saturday', 'Sunday']:
+            print('Market is closed')
+            print('Market will open on Monday at {}'.format(market_open_timing))
+            time.sleep(300)
+            continue
+
+        elif current_time < market_open_timing or current_time > market_close_timing:
+            print('Market is closed')
+            differnce = datetime.datetime.strptime(market_open_timing, '%H:%M:%S') - datetime.datetime.strptime(current_time, '%H:%M:%S')
+            differnce = differnce.total_seconds()/60
+            print('Market will open in {} minutes'.format(differnce))
+            # start a timer and print in the reverse order
+            print_time_left(differnce)
+            continue
+        else:
             check_overall()
             main()
             time.sleep(20)
-        else:
-            print('Market is closed')
-            # delte csv file
-            shutil.rmtree('data/stock.csv', ignore_errors=True)
-            time.sleep(300)
