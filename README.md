@@ -6,7 +6,7 @@ Data for stocks is scrapped from [Google Finance](https://www.google.com/finance
 
 ## Demo 
 
-A Demo can be check here:- [Demo](http://13.235.246.34:5000/)
+A Demo can be check here:- [Demo](http://13.235.246.34:5000/) : not available right now
 
 ## How to use
 
