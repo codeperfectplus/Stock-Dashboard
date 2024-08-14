@@ -9,24 +9,6 @@
         "currency": "INR"
     },
     {
-        "stock_name": "KPIT Technologies Ltd",
-        "symbol": "KPITTECH:NSE",
-        "min_price": 505.5,
-        "max_price": 1552.0,
-        "buy": true,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
-        "stock_name": "Jubilant Ingrevia Ltd",
-        "symbol": "JUBLINGREA:NSE",
-        "min_price": 450,
-        "max_price": 700,
-        "buy": false,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
         "stock_name": "Infosys Ltd",
         "symbol": "INFY:NSE",
         "min_price": 1459,
@@ -35,43 +17,7 @@
         "market": "IN",
         "currency": "INR"
     },
-    {
-        "stock_name": "Tata Power Company Limited",
-        "symbol": "TATAPOWER:NSE",
-        "min_price": 216.3,
-        "max_price": 446.4,
-        "buy": true,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
-        "stock_name": "Tata Motors Limited",
-        "symbol": "TATAMOTORS:NSE",
-        "min_price": 396.25,
-        "max_price": 959.2,
-        "buy": true,
-        "market": "IN",
-        "currency": "INR"
-    },
-        {
-        "stock_name": "Bharti Airtel Limited",
-        "symbol": "BHARTIARTL:NSE",
-        "min_price": 686.45,
-        "max_price": 1380.4,
-        "buy": true,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
-        "stock_name": "Coal India Ltd",
-        "symbol": "COALINDIA:NSE",
-        "min_price": 157.2,
-        "max_price": 494.75,
-        "buy": false,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
+         {
         "stock_name": "Oil & Natural Gas Corporation Limited",
         "symbol": "ONGC:NSE",
         "min_price": 127.65,
@@ -80,16 +26,7 @@
         "market": "IN",
         "currency": "INR"
     },
-    {
-        "stock_name": "Reliance Industries Ltd",
-        "symbol": "RELIANCE:NSE",
-        "min_price": 2293.8,
-        "max_price": 2934.9,
-        "buy": false,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
+        {
         "stock_name": "Adani Ports and Special Economic Zone Ltd",
         "symbol": "ADANIPORTS:NSE",
         "min_price": 1053,
@@ -98,25 +35,7 @@
         "market": "IN",
         "currency": "INR"
     },
-    
-    {
-        "stock_name": "Yes Bank Limited",
-        "symbol": "YESBANK:NSE",
-        "min_price": 13.15,
-        "max_price": 23.0,
-        "buy": true,
-        "market": "IN",
-        "currency": "INR"
-    },
-    {
-        "stock_name": "Apple Inc",
-        "symbol": "AAPL:NASDAQ",
-        "min_price": 137.59,
-        "max_price": 189.98,
-        "buy": true,
-        "market": "US",
-        "currency": "Dollar"
-    },
+
     {
         "stock_name": "NVIDIA Corporation",
         "symbol": "NVDA:NASDAQ",
