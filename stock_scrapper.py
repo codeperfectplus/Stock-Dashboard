@@ -96,27 +96,54 @@ def print_time_left(minutes_left, print_time_delay=1):
         seconds_left -= print_time_delay
         minutes_left -= print_time_delay / 60
 
-if __name__ == '__main__':
-    while True:
-        market_open_timing = '09:00:00'
-        market_close_timing = '15:30:00'
-        current_time = datetime.datetime.now(IST).strftime('%H:%M:%S')
-        current_day = datetime.datetime.now(IST).strftime('%A')
-        if current_day in ['Saturday', 'Sunday']:
-            print('Market is closed')
-            print('Market will open on Monday at {}'.format(market_open_timing))
-            time.sleep(300)
-            continue
+import datetime
+import time
 
-        elif current_time < market_open_timing or current_time > market_close_timing:
-            print('Market is closed')
-            differnce = datetime.datetime.strptime(market_open_timing, '%H:%M:%S') - datetime.datetime.strptime(current_time, '%H:%M:%S')
-            differnce = differnce.total_seconds()/60
-            print('Market will open in {} minutes'.format(differnce))
-            # start a timer and print in the reverse order
-            print_time_left(differnce)
-            continue
-        else:
+# Function to print the time left in a countdown
+def print_time_left(minutes_left):
+    for minute in range(int(minutes_left), 0, -1):
+        print(f'Market will open in {minute} minutes')
+        time.sleep(60)
+
+# Main function
+def market_monitor():
+    IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))  # Define the IST timezone
+    market_open_time = datetime.time(9, 0, 0)   # Market opens at 09:00:00
+    market_close_time = datetime.time(15, 30, 0)  # Market closes at 15:30:00
+
+    while True:
+        current_time = datetime.datetime.now(IST).time()
+        current_day = datetime.datetime.now(IST).strftime('%A')
+
+        if current_day in ['Saturday', 'Sunday']:
             check_overall()
             main()
-            time.sleep(20)
+            print('Market is closed')
+            print('Market will open on Monday at 09:00 AM')
+            time.sleep(1200)
+            continue
+
+        if current_time < market_open_time:
+            time_until_open = (datetime.datetime.combine(datetime.date.today(), market_open_time) - 
+                               datetime.datetime.now(IST)).total_seconds() / 60
+            print('Market is closed')
+            print(f'Market will open in {int(time_until_open)} minutes')
+            print_time_left(time_until_open)
+            continue
+
+        elif current_time > market_close_time:
+            print('Market is closed')
+            print('Market will open tomorrow at 09:00 AM')
+            time_until_open = (datetime.datetime.combine(datetime.date.today() + datetime.timedelta(days=1), market_open_time) - 
+                               datetime.datetime.now(IST)).total_seconds() / 60
+            print_time_left(time_until_open)
+            continue
+
+        else:
+            print('Market is open')
+            check_overall()
+            main()
+            time.sleep(20)  # Sleep for 20 seconds before checking again
+
+if __name__ == '__main__':
+    market_monitor()

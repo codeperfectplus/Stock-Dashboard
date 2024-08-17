@@ -49,3 +49,7 @@ to track your favorite stocks in one click and send notifications when the stock
 ## Author
 
 - [Deepak Raj](https://github.com/codeperfectplus)
+
+
+sudo docker build -t stock-alert-dashboard .
+sudo docker run -p 5000:5000 stock-alert-dashboard
